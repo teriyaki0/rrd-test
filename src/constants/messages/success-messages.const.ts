@@ -3,6 +3,10 @@ enum REQUEST {
   REQUEST_COMPLETED = "Request completed",
 }
 
+enum SOCKET {
+  CONNECTED = "Socket connected",
+}
+
 enum CACHE {
   REDIS_CONNECTED = "Redis connection established",
 
@@ -14,4 +18,5 @@ enum CACHE {
 export const SUCCESS = {
   REQUEST,
   CACHE,
+  SOCKET,
 };

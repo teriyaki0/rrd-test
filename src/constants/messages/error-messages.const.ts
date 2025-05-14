@@ -7,6 +7,7 @@ enum COMMON {
   EVERY_FIELD_REQUIRED = "Every field is required.",
   ONLY_IMAGE_ALLOWED = "Only image files are allowed.",
   INVALID_TIME_FORMAT = "Invalid time format.",
+  SOCKET_ERROR = "Socket connection error.",
 }
 
 enum CONFIG_ERROR {

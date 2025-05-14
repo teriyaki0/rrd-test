@@ -1,36 +1,20 @@
 import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 
 import { Models } from "../interfaces/general";
-
-export enum UserRole {
-  Admin = "Admin",
-  User = "User",
-}
+import { Game } from "./game.model";
 
 export interface UserAttributes {
-  id: number;
-  firstName: string;
-  lastName: string;
-  image: string;
-  title: string;
-  summary: string;
-  role: UserRole;
-  email: string;
-  password: string;
+  id: string;
+  tgId: string;
+  username: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export class User extends Model<UserAttributes, Optional<UserAttributes, "id">> implements UserAttributes {
-  id: number;
-  firstName: string;
-  lastName: string;
-  image: string;
-  title: string;
-  summary: string;
-  role: UserRole;
-  email: string;
-  password: string;
+export class User extends Model<UserAttributes, Optional<UserAttributes, "id" | "createdAt" | "updatedAt">> implements UserAttributes {
+  id: string;
+  tgId: string;
+  username: string;
 
   readonly createdAt: Date;
   readonly updatedAt: Date;
@@ -41,8 +25,6 @@ export class User extends Model<UserAttributes, Optional<UserAttributes, "id">> 
     delete values.createdAt;
     delete values.updatedAt;
 
-    delete values.password;
-
     return values;
   }
 
@@ -50,42 +32,20 @@ export class User extends Model<UserAttributes, Optional<UserAttributes, "id">> 
     User.init(
       {
         id: {
-          type: DataTypes.INTEGER.UNSIGNED,
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4,
           autoIncrement: true,
           primaryKey: true,
         },
-        firstName: {
-          field: "first_name",
+        tgId: {
+          type: DataTypes.STRING(128),
+          field: "tg_id",
+          allowNull: false,
+          unique: true,
+        },
+        username: {
           type: new DataTypes.STRING(128),
-          allowNull: false,
-        },
-        lastName: {
-          field: "last_name",
-          type: new DataTypes.STRING(128),
-          allowNull: false,
-        },
-        image: {
-          type: new DataTypes.STRING(256),
-          allowNull: false,
-        },
-        title: {
-          type: new DataTypes.STRING(256),
-          allowNull: false,
-        },
-        summary: {
-          type: new DataTypes.STRING(256),
-          allowNull: false,
-        },
-        role: {
-          type: new DataTypes.STRING(50),
-          allowNull: false,
-        },
-        email: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
-        password: {
-          type: DataTypes.STRING,
+          field: "username",
           allowNull: false,
         },
       },
@@ -97,5 +57,10 @@ export class User extends Model<UserAttributes, Optional<UserAttributes, "id">> 
     );
   }
 
-  static associate(models: Models) {}
+  static associate(models: Models) {
+    Game.belongsTo(models.user, {
+      as: "user",
+      foreignKey: "userId",
+    });
+  }
 }

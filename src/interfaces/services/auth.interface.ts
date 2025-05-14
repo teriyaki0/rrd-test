@@ -1,6 +1,4 @@
-import { InitData } from "@telegram-apps/init-data-node";
-
 export interface IAuthService {
-  login(initData: InitData): Promise<object>;
-  register(id: string): Promise<object>;
+  login(initData: string): Promise<{ token: string }>;
+  register(id: string, username: string): Promise<object>;
 }

@@ -29,6 +29,7 @@ export interface Config {
     };
     session: {
       secret: string;
+      maxAge: number;
     };
     crypto: {
       salt: number;
@@ -72,6 +73,7 @@ const configs: {
       },
       session: {
         secret: validatedEnv.SESSION_SECRET,
+        maxAge: validatedEnv.SESSION_MAX_AGE,
       },
       crypto: {
         salt: validatedEnv.SALT,

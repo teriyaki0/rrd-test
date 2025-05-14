@@ -1,5 +1,6 @@
 import { Context } from "../interfaces/general";
 import { AuthService } from "../services/auth.service";
+import { GeneralService } from "../services/general.service";
 import { TelegramService } from "../services/telegram.service";
 
 export const loadContext = async (): Promise<Context> => {
@@ -7,6 +8,7 @@ export const loadContext = async (): Promise<Context> => {
     services: {
       authService: new AuthService(),
       telegramService: new TelegramService(),
+      generalService: new GeneralService(),
     },
   };
 };

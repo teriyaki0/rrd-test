@@ -26,6 +26,15 @@ enum USER {
   USER_NOT_FOUND = "A user with the provided ID is not found.",
 }
 
+enum GAME {
+  GAME_NOT_FOUND = "A game with the provided ID is not found.",
+}
+
+enum CONVERT {
+  PARAMS_FROM_TO_DIFFERENT = "Params from to different",
+  CONVERSION_NOT_ENOUGH = "Conversion not enough",
+}
+
 enum CACHE {
   CONNECTION_ERROR = "Connection error.",
 
@@ -40,4 +49,6 @@ export const ERROR_MESSAGE = {
   AUTH,
   USER,
   CACHE,
+  CONVERT,
+  GAME,
 };

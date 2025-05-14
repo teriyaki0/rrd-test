@@ -1,5 +1,8 @@
 import { DataTypes, Model, Optional, Sequelize } from "sequelize";
 
+import { Models } from "../interfaces/general";
+import { User } from "./user.model";
+
 export interface GameAttributes {
   id: string;
   userId: string;
@@ -75,5 +78,12 @@ export class Game extends Model<GameAttributes, Optional<GameAttributes, "id" | 
         sequelize,
       },
     );
+  }
+
+  static associate(models: Models) {
+    User.hasMany(models.game, {
+      foreignKey: "userId",
+      as: "games",
+    });
   }
 }

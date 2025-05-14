@@ -1,18 +1,16 @@
 import express from "express";
 
-import { config } from "../config";
+import { sequelize } from "../libs/sequalize";
 import { errorHandler } from "../middleware/error-handler";
 import { loadContext } from "./context";
 import { loadMiddlewares } from "./middlewares";
 import { loadModels } from "./models";
 import { loadPassport } from "./passport";
 import { loadRoutes } from "./routes";
-import { loadSequelize } from "./sequelize";
 import { loadTelegraph } from "./telegraph";
 
 export const loadApp = async () => {
   const app = express();
-  const sequelize = loadSequelize(config);
 
   loadModels(sequelize);
 
@@ -22,7 +20,7 @@ export const loadApp = async () => {
 
   loadMiddlewares(app, context);
 
-  loadTelegraph(app, context);
+  // loadTelegraph(app, context);
 
   loadRoutes(app, context);
 

@@ -1,6 +1,6 @@
 node_modules
 
-mysql_data
+postgres_data
 
 redis_data
 

@@ -4,7 +4,7 @@ import { Config } from "../config";
 
 export const loadSequelize = (config: Config): Sequelize => {
   return new Sequelize({
-    dialect: "mysql",
+    dialect: "postgres",
     ...config.db,
   });
 };

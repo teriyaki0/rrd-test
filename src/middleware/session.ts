@@ -14,5 +14,5 @@ export const sessionMiddleware = session({
     httpOnly: true,
     maxAge: config.security.session.maxAge,
   },
-  store: new RedisStore({ client: redisClient, prefix: `${CACHE_KEYS_PREFIX.SESSION}:` }),
+  store: new RedisStore({ client: redisClient, prefix: CACHE_KEYS_PREFIX.SESSION }),
 });

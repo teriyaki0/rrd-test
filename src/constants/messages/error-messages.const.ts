@@ -1,0 +1,42 @@
+enum COMMON {
+  INTERNAL_SERVER_ERROR = "Something went wrong on the server.",
+  HANDLED_ERROR = "Handled error.",
+  REQUEST_FAILED = "Request failed.",
+  FORBIDDEN = "Forbidden.",
+  VALIDATION_ERROR = "Validation failed.",
+  EVERY_FIELD_REQUIRED = "Every field is required.",
+  ONLY_IMAGE_ALLOWED = "Only image files are allowed.",
+  INVALID_TIME_FORMAT = "Invalid time format.",
+}
+
+enum CONFIG_ERROR {
+  NODE_ENV_REQUIRED = "NODE_ENV must be specified. Expected values: development, production, test.",
+  NODE_ENV_INVALID = "Unsupported NODE_ENV value. Expected: development, production, test.",
+}
+
+enum AUTH {
+  UNAUTHORIZED = "Unauthorized.",
+  LOGIN_ERROR = "User or password is incorrect.",
+  REGISTER_ERROR = "User with this email already exists.",
+  EMAIL_FIELD_UNIQUE = "email should be a unique field.",
+}
+
+enum USER {
+  USER_NOT_FOUND = "A user with the provided ID is not found.",
+}
+
+enum CACHE {
+  CONNECTION_ERROR = "Connection error.",
+
+  SET = "Cache set error.",
+  GET = "Cache get error.",
+  DELETE = "Cache delete error.",
+}
+
+export const ERROR_MESSAGE = {
+  COMMON,
+  CONFIG_ERROR,
+  AUTH,
+  USER,
+  CACHE,
+};

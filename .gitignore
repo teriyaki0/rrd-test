@@ -1,0 +1,15 @@
+node_modules
+
+mysql_data
+
+redis_data
+
+logs
+
+dist
+
+.env
+
+avatars
+
+images

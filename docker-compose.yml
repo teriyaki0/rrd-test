@@ -1,0 +1,21 @@
+version: "3.1"
+
+services:
+  mysql:
+    image: mysql
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    volumes:
+      - ./redis_data:/data

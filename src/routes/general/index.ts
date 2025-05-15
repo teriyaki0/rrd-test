@@ -1,11 +1,11 @@
 import express, { NextFunction, Response } from "express";
 
 import { HTTP_STATUS_CODE } from "../../constants/http-status-code.enum";
+import { RATE_LIMIT_PRESET } from "../../constants/rate-limit-preset.const";
 import { ExtendedRequest } from "../../interfaces/express";
 import { Context, RouterFactory } from "../../interfaces/general";
 import { rateLimiter } from "../../middleware/rate-limiter";
 import { validate } from "../../middleware/validate";
-import { getExpiration } from "../../utils/getExpiration";
 import { convertInputScheme } from "./inputs/convert.input";
 
 export const makeGeneralRouter: RouterFactory = (context: Context) => {
@@ -20,7 +20,7 @@ export const makeGeneralRouter: RouterFactory = (context: Context) => {
     }
   });
 
-  router.post("/convert", validate({ body: convertInputScheme }), rateLimiter(getExpiration("10m")), async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+  router.post("/convert", validate({ body: convertInputScheme }), rateLimiter(RATE_LIMIT_PRESET.CONVERT), async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     try {
       const result = await context.services.generalService.creditsTransfer({ tgId: req.user.id, ...req.body });
       res.status(HTTP_STATUS_CODE.OK).json({ result });

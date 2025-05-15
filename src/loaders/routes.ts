@@ -9,11 +9,11 @@ import { makeRegularRouter } from "../routes/regular";
 import { makeSuperRouter } from "../routes/super";
 
 export const loadRoutes = (app: express.Router, context: Context) => {
-  app.use("/api/auth", makeAuthRouter(context));
+  app.use("/auth", makeAuthRouter(context));
 
-  app.use("/api/game", requireAuth, makeGeneralRouter(context));
+  app.use("/game", requireAuth, makeGeneralRouter(context));
 
-  app.use("/api/game", requireAuth, makeRegularRouter(context));
-  app.use("/api/super", requireAuth, makeSuperRouter(context));
-  app.use("/api/double", requireAuth, makeDoubleRouter(context));
+  app.use("/game", requireAuth, makeRegularRouter(context));
+  app.use("/super", requireAuth, makeSuperRouter(context));
+  app.use("/double", requireAuth, makeDoubleRouter(context));
 };

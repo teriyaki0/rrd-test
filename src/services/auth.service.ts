@@ -34,7 +34,7 @@ export class AuthService implements IAuthService {
     const existing = await User.findOne({ where: { id } });
 
     if (existing) {
-      throw new HttpError(HTTP_STATUS_CODE.BAD_REQUEST, ERROR_MESSAGE.AUTH.EMAIL_FIELD_UNIQUE);
+      throw new HttpError(HTTP_STATUS_CODE.BAD_REQUEST, ERROR_MESSAGE.AUTH.USER_ALREADY_REGISTERED);
     }
 
     const user = await User.create({ tgId: id, username });

@@ -6,6 +6,8 @@ enum COMMON {
   VALIDATION_ERROR = "Validation failed.",
   EVERY_FIELD_REQUIRED = "Every field is required.",
   INVALID_TIME_FORMAT = "Invalid time format.",
+  TOO_MANY_REQUESTS = "Too many requests.",
+  RATE_LIMITER_ERROR = "Rate limiter error.",
 }
 
 enum SOCKET {
@@ -23,6 +25,7 @@ enum AUTH {
   LOGIN_ERROR = "User or password is incorrect.",
   REGISTER_ERROR = "User with this email already exists.",
   EMAIL_FIELD_UNIQUE = "email should be a unique field.",
+  USER_ALREADY_REGISTERED = "User already registered.",
 }
 
 enum USER {
@@ -33,6 +36,7 @@ enum GAME {
   GAME_NOT_FOUND = "A game with the provided ID is not found.",
   BALANCE_NOT_ENOUGH = "Balance not enough.",
   DOUBLE_GAME_ACTIVE = "Double game active.",
+  DOUBLE_GAME_ERROR = "Double game error.",
 }
 
 enum SUPER {

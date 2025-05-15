@@ -1,6 +1,6 @@
 import { ICombination } from "../../../constants/game/combination.interface";
-import { RegularWheelElement } from "../../../constants/game/regular-wheel.enum";
 import { WheelElement } from "../../../constants/game/const/wheel-element.const";
+import { RegularWheelElement } from "../../../constants/game/regular-wheel.enum";
 
 export function checkLineForCombinationWithDouble(lineElements: (WheelElement | WheelElement[])[], combination: ICombination): { satisfied: boolean; matches: number } {
   const patternParts = combination.code.split("_");

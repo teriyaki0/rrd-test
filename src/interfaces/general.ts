@@ -25,7 +25,7 @@ export type RouterFactory = (context: Context) => express.Router;
 
 export type Loader = (app: express.Application, context: Context) => void;
 
-export type SocketLoader = (httpServer: HttpServer) => void;
+export type SocketLoader = (httpServer: HttpServer, context: Context) => void;
 
 export interface Models {
   user: typeof User;

@@ -4,7 +4,7 @@ import { SequelizeStorage, Umzug } from "umzug";
 import { config } from "./config";
 
 const sequelize = new Sequelize({
-  dialect: "mysql",
+  dialect: "postgres",
   ...config.db,
 });
 

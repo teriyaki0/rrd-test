@@ -6,3 +6,9 @@ export const corsSettings = {
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
+
+export const socketCors = {
+  origin: corsSettings.origin,
+  credentials: corsSettings.credentials,
+  methods: corsSettings.methods,
+};

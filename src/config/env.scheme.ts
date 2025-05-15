@@ -30,7 +30,7 @@ const envSchema = z.object({
   JWT_EXPIRES_IN: z.string(),
 
   SESSION_SECRET: z.string(),
-  SESSION_MAX_AGE: z.coerce.number(),
+  SESSION_MAX_AGE: z.string(),
 
   CLIENT_URL: z.string(),
   WEBHOOK_URL: z.string(),

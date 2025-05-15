@@ -20,7 +20,7 @@ export const loadApp = async () => {
 
   loadMiddlewares(app, context);
 
-  // loadTelegraph(app, context);
+  loadTelegraph(app, context);
 
   loadRoutes(app, context);
 

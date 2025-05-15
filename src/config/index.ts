@@ -29,7 +29,7 @@ export interface Config {
     };
     session: {
       secret: string;
-      maxAge: number;
+      maxAge: string;
     };
     crypto: {
       salt: number;

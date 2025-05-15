@@ -5,9 +5,12 @@ enum COMMON {
   FORBIDDEN = "Forbidden.",
   VALIDATION_ERROR = "Validation failed.",
   EVERY_FIELD_REQUIRED = "Every field is required.",
-  ONLY_IMAGE_ALLOWED = "Only image files are allowed.",
   INVALID_TIME_FORMAT = "Invalid time format.",
+}
+
+enum SOCKET {
   SOCKET_ERROR = "Socket connection error.",
+  DISCONNECTED = "Socket disconnected.",
 }
 
 enum CONFIG_ERROR {
@@ -28,6 +31,12 @@ enum USER {
 
 enum GAME {
   GAME_NOT_FOUND = "A game with the provided ID is not found.",
+  BALANCE_NOT_ENOUGH = "Balance not enough.",
+  DOUBLE_GAME_ACTIVE = "Double game active.",
+}
+
+enum SUPER {
+  CARDS_NOT_ENOUGH = "Cards not enough.",
 }
 
 enum CONVERT {
@@ -37,6 +46,8 @@ enum CONVERT {
 
 enum CACHE {
   CONNECTION_ERROR = "Connection error.",
+
+  SESSION_SAVE_ERROR = "Session save error.",
 
   SET = "Cache set error.",
   GET = "Cache get error.",
@@ -51,4 +62,6 @@ export const ERROR_MESSAGE = {
   CACHE,
   CONVERT,
   GAME,
+  SOCKET,
+  SUPER,
 };

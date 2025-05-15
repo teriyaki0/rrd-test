@@ -8,6 +8,7 @@ import { SocketLoader } from "../interfaces/general";
 import { logger } from "../libs/logger";
 import { redisClient } from "../libs/redis";
 import { sessionMiddleware } from "../middleware/session";
+import { socketAuth } from "../middleware/socketAuth";
 
 export const loadSocket: SocketLoader = (httpServer) => {
   const io = new Server(httpServer, {
@@ -28,13 +29,21 @@ export const loadSocket: SocketLoader = (httpServer) => {
     sessionMiddleware(socket.request as any, {} as any, next as any);
   });
 
+  io.use(socketAuth);
+
   io.on("connection", (socket) => {
     const session = (socket.request as any).session;
 
     logger.info({ msg: SUCCESS.SOCKET.CONNECTED, sessionId: session.id, userId: session.user.id });
 
     socket.on("error", (err) => {
-      logger.error({ msg: ERROR_MESSAGE.COMMON.SOCKET_ERROR, error: err });
+      logger.error({ msg: ERROR_MESSAGE.SOCKET.SOCKET_ERROR, error: err });
     });
+
+    socket.on("disconnect", () => {
+      console.log(ERROR_MESSAGE.SOCKET.DISCONNECTED, socket.id);
+    });
+
+    socket.on("double", async () => {});
   });
 };

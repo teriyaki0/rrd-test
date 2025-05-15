@@ -4,7 +4,10 @@ import { Server as HttpServer } from "http";
 import { Game } from "../models/game.model";
 import { User } from "../models/user.model";
 import { AuthService } from "../services/auth.service";
+import { DoubleService } from "../services/double.service";
 import { GeneralService } from "../services/general.service";
+import { RegularService } from "../services/regular.service";
+import { SuperService } from "../services/super.service";
 import { TelegramService } from "../services/telegram.service";
 
 export interface Context {
@@ -12,6 +15,9 @@ export interface Context {
     authService: AuthService;
     telegramService: TelegramService;
     generalService: GeneralService;
+    regularService: RegularService;
+    superService: SuperService;
+    doubleService: DoubleService;
   };
 }
 

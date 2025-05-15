@@ -1,9 +1,9 @@
+import { WheelElement } from "../../constants/game/const/wheel-element.const";
 import { Mode } from "../../constants/game/mode.type";
-import { SuperWheel } from "../../constants/game/super-wheel.enum";
 
 export interface SuperGame {
   mode: Mode;
-  elements: SuperWheel[];
+  elements: WheelElement[];
   winAmount: number;
   combination: number[];
   beSecondChance: boolean;

@@ -1,9 +1,9 @@
+import { WheelElement } from "../../constants/game/const/wheel-element.const";
 import { Mode } from "../../constants/game/mode.type";
-import { RegularWheel } from "../../constants/game/regular-wheel.enum";
 
 export interface RegularGame {
   mode: Mode;
-  elements: RegularWheel[];
+  elements: WheelElement[];
   winAmount: number;
   combination: number[];
   beSecondChance: boolean;

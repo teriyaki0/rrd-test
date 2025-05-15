@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { Session } from "express-session";
 
 import { User } from "../models/user.model";
 import { DoubleGame } from "./sessions/double.session";
@@ -7,7 +8,7 @@ import { SuperGame } from "./sessions/super.session";
 
 export type AuthenticatedUser = Pick<User, "id">;
 
-export interface AppSession {
+export interface AppSession extends Session {
   user: AuthenticatedUser;
   regularGame: RegularGame;
   superGame: SuperGame;

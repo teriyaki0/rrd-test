@@ -48,6 +48,7 @@ enum CACHE {
   CONNECTION_ERROR = "Connection error.",
 
   SESSION_SAVE_ERROR = "Session save error.",
+  SESSION_NOT_FOUND = "Session not found.",
 
   SET = "Cache set error.",
   GET = "Cache get error.",

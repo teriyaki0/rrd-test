@@ -9,6 +9,8 @@ import { logger } from "../libs/logger";
 import { redisClient } from "../libs/redis";
 import { sessionMiddleware } from "../middleware/session";
 import { socketAuth } from "../middleware/socketAuth";
+import { socketSessionMiddleware } from "../middleware/socketSession";
+import { getSocketSession, getSocketUser } from "../utils/socket";
 
 export const loadSocket: SocketLoader = (httpServer) => {
   const io = new Server(httpServer, {
@@ -23,7 +25,7 @@ export const loadSocket: SocketLoader = (httpServer) => {
 
   io.adapter(createAdapter(redisClient, redisClient.duplicate()));
 
-  io.engine.use(sessionMiddleware);
+  io.use(socketSessionMiddleware);
 
   io.use((socket, next) => {
     sessionMiddleware(socket.request as any, {} as any, next as any);
@@ -32,10 +34,18 @@ export const loadSocket: SocketLoader = (httpServer) => {
   io.use(socketAuth);
 
   io.on("connection", (socket) => {
-    const session = (socket.request as any).session;
+    const user = getSocketUser(socket);
+    if (!user) {
+      socket.disconnect();
+      return;
+    }
 
-    logger.info({ msg: SUCCESS.SOCKET.CONNECTED, sessionId: session.id, userId: session.user.id });
-
+    logger.info({
+      msg: SUCCESS.SOCKET.CONNECTED,
+      sessionId: getSocketSession(socket).id,
+      userId: user.id,
+    });
+    
     socket.on("error", (err) => {
       logger.error({ msg: ERROR_MESSAGE.SOCKET.SOCKET_ERROR, error: err });
     });

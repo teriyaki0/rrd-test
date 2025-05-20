@@ -4,10 +4,10 @@ import { HTTP_STATUS_CODE } from "../../constants/http-status-code.enum";
 import { RATE_LIMIT_PRESET } from "../../constants/rate-limit-preset.const";
 import { ExtendedRequest } from "../../interfaces/express";
 import { Context, RouterFactory } from "../../interfaces/general";
+import { initializeSession } from "../../middleware/initializeSession";
 import { rateLimiter } from "../../middleware/rate-limiter";
 import { validate } from "../../middleware/validate";
 import { signInInputScheme } from "./inputs/sign-in.input";
-import { initializeSession } from "../../middleware/initializeSession";
 
 export const makeAuthRouter: RouterFactory = (context: Context) => {
   const router = express.Router();

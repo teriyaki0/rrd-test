@@ -1,6 +1,5 @@
-import { Mode } from "fs";
-
 import { REGULAR_COMBINATION } from "../../../constants/game/const/regular-combination.const";
+import { Mode } from "../../../constants/game/mode.type";
 import { RegularWheelElement } from "../../../constants/game/regular-wheel.enum";
 import { calculateWinAmount } from "../calculateWinAmount";
 

@@ -18,14 +18,14 @@ export const loadServer = async () => {
   loadModels(sequelize);
 
   const context = await loadContext();
-  
+
+  loadSocket(httpServer, context);
+
   loadPassport(app, context);
 
   loadMiddlewares(app, context);
 
   loadTelegraph(app, context);
-
-  loadSocket(httpServer, context);
 
   loadRoutes(app, context);
 

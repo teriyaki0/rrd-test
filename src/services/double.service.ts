@@ -75,7 +75,7 @@ export class DoubleService implements IDoubleService {
   }): Promise<{ doubleGame: DoubleGame; totalAmount?: number; multiplier?: number; winPoints: number; superPoint: number; gameFinished: boolean }> {
     const active = doubleGame.active;
 
-    if (active) {
+    if (!active) {
       throw new HttpError(HTTP_STATUS_CODE.BAD_REQUEST, ERROR_MESSAGE.GAME.DOUBLE_GAME_ACTIVE);
     }
 

@@ -31,6 +31,7 @@ export const loadPassport: Loader = (app, context: Context) => {
 
     passport.authenticate("jwt", { session: false }, (...args: any[]) => {
       req.user = args[1] || undefined;
+    
       next();
     })(req, res, next);
   });

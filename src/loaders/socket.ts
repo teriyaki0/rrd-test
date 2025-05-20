@@ -13,7 +13,7 @@ import { socketAuth } from "../middleware/socketAuth";
 import { Game } from "../models/game.model";
 import { User } from "../models/user.model";
 import { saveSession } from "../utils/saveSession";
-import { getSocketSession, getSocketUser } from "../utils/socket";
+import { getSocketSession } from "../utils/socket";
 
 export const loadSocket: SocketLoader = (httpServer, context) => {
   const io = new Server(httpServer, {
@@ -29,12 +29,10 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
   io.use(socketAuth);
 
   io.on(SOCKET_HANDLES.COMMON.CONNECTION, (socket) => {
-    const user = getSocketUser(socket);
-
+    const tgId = socket.data.user?.tgId;
     logger.info({
       msg: SUCCESS.SOCKET.CONNECTED,
       sessionId: getSocketSession(socket).id,
-      userId: user.tgId,
     });
 
     socket.on('sendPing', () => {
@@ -46,31 +44,39 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
 
       request.session.reload(async (err: any) => {
         if (err) {
-          logger.error({ msg: ERROR_MESSAGE.CACHE.SESSION_NOT_FOUND, error: err });
-          socket.emit(SOCKET_HANDLES.DOUBLE.ERROR, { code: HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, message: ERROR_MESSAGE.COMMON.INTERNAL_SERVER_ERROR });
+          socket.emit(SOCKET_HANDLES.DOUBLE.ERROR, {
+            code: HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR,
+            message: ERROR_MESSAGE.COMMON.INTERNAL_SERVER_ERROR,
+          });
           return;
         }
 
-        logger.info({
-          msg: "[DOUBLE] Received double request from socket",
-          socketId: socket.id,
-          user: (request as any).user?.tgId,
-        });
-
-        const tgId = user.tgId;
         const session = getSocketSession(socket);
 
         try {
-          const result = await context.services.doubleService.play({ tgId, doubleGame: session.doubleGame });
+          const result = await context.services.doubleService.play({
+            tgId,
+            doubleGame: session.doubleGame,
+          });
 
           session.doubleGame = result.doubleGame;
-
           saveSession(session);
 
           const { doubleGame, ...responseData } = result;
 
           socket.emit(SOCKET_HANDLES.DOUBLE.RESULT, responseData);
         } catch (error) {
+          logger.error({
+            msg: "[DOUBLE] ❌ Error during double game play",
+            socketId: socket.id,
+            userId: tgId,
+            errorMessage: error?.message,
+            errorStack: error?.stack,
+            errorResponse: error?.response,
+            errorCode: error?.code,
+            fullError: error,
+          });
+
           const game = await Game.findOne({
             include: [{ model: User, as: "user", where: { tgId }, attributes: [] }],
           });
@@ -78,6 +84,11 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
           if (game) {
             game.winPoint = 0;
             await game.save();
+            logger.warn({
+              msg: "[DOUBLE] 🛑 Game reset due to error",
+              gameId: game.id,
+              userId: tgId,
+            });
           }
 
           session.doubleGame = {
@@ -91,8 +102,10 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
 
           saveSession(session);
 
-          logger.error({ msg: ERROR_MESSAGE.GAME.DOUBLE_GAME_ERROR, error });
-          socket.emit(SOCKET_HANDLES.DOUBLE.ERROR, { code: HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR, message: ERROR_MESSAGE.COMMON.INTERNAL_SERVER_ERROR });
+          socket.emit(SOCKET_HANDLES.DOUBLE.ERROR, {
+            code: HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR,
+            message: ERROR_MESSAGE.COMMON.INTERNAL_SERVER_ERROR,
+          });
         }
       });
     });

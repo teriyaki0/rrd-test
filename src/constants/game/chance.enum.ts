@@ -1,4 +1,4 @@
 export enum CHANCE {
-  ROULLETE = 0.0001,
-  DOUBLE = 50,
+  ROULLETE = 0.00001,
+  DOUBLE = 40,
 }

@@ -15,7 +15,7 @@ import { cardAdding } from "./utils/super/cardAdding";
 
 export interface ISuperSpinResult {
   results: number[];
-  elements: WheelElement[];
+  elements: WheelElement[][];
   winAmount: number;
   winLines: any;
   beSecondChance: boolean;
@@ -28,7 +28,7 @@ export function superSpin(mode: number, combination: number[], superGame: SuperG
 
   const weight = adjustWeights(currentMode, SUPER_WEIGHTS);
 
-  if (superGame.beSecondChance || superGame.winAmount > 0) {
+  if (superGame.beSecondChance || superGame.winAmount > 0 || superGame.carding) {
     combination = [1, 1, 1];
   }
 
@@ -69,10 +69,10 @@ export function superSpin(mode: number, combination: number[], superGame: SuperG
   return {
     results,
     winAmount: totalWinAmount,
-    elements: elements.flat(),
+    elements,
     beSecondChance: combination.some((v) => v !== 1),
-    indexContinue: getContinueCombination(baseSecondChance.missingWheelIndex),
-    winLines: winLines,
+    indexContinue: cards > 0 ? [1, 1, 1] : getContinueCombination(baseSecondChance.missingWheelIndex),
+    winLines,
     cards,
   };
 }

@@ -204,7 +204,7 @@ export class DoubleService implements IDoubleService {
     game.winPoint = 0;
 
     if (isWin) {
-      game.winPoint += originalAmount * currentMultiplier;
+      game.superPoint += originalAmount * currentMultiplier;
     }
 
     await game.save();

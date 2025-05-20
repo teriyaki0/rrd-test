@@ -28,6 +28,7 @@ export const makeSuperRouter: RouterFactory = (context: Context) => {
         winAmount: result.winAmount,
         combination: result.results,
         beSecondChance: result.beSecondChance,
+        carding: result.cards > 0 ? true : false
       };
 
       saveSession(req.session);
@@ -38,9 +39,9 @@ export const makeSuperRouter: RouterFactory = (context: Context) => {
     }
   });
 
-  router.get("/cards", async (req: any, res: Response, next: NextFunction) => {
+  router.get("/cards", async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     try {
-      const result = await context.services.superService.getCards({ tgId: req.user.id });
+      const result = await context.services.superService.getCards({ tgId: req.user.tgId });
       req.session.superGame.winAmount = result.winAmount;
 
       saveSession(req.session);

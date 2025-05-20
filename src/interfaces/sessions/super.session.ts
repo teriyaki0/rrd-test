@@ -3,8 +3,9 @@ import { Mode } from "../../constants/game/mode.type";
 
 export interface SuperGame {
   mode: Mode;
-  elements: WheelElement[];
+  elements: WheelElement[][];
   winAmount: number;
   combination: number[];
   beSecondChance: boolean;
+  carding: boolean;
 }

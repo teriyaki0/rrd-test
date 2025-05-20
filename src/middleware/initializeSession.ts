@@ -16,7 +16,8 @@ export function initializeSession(req: ExtendedRequest, res: Response, next: Nex
     mode: "x1",
     elements: [],
     winAmount: 0,
-    beSecondChance: false
+    beSecondChance: false,
+    carding: false
   };
 
   req.session.doubleGame ??= {   

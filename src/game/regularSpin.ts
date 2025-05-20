@@ -82,7 +82,7 @@ export function regularSpin(mode: number, combination: number[], regularGame: Re
   return {
     results,
     winAmount,
-    elements: elements,
+    elements,
     beSecondChance: combination.some((v) => v !== 1),
     indexContinue: getContinueCombination(missingIndex),
     winLines: winLinesCore,

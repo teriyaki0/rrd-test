@@ -55,6 +55,8 @@ export class SuperService implements ISuperService {
 
     const result = superSpin(mode, combination, superGame);
 
+    game.cards += result.cards;
+
     await game.save();
 
     return result;
@@ -86,6 +88,8 @@ export class SuperService implements ISuperService {
           value: 5000,
         },
       });
+      
+      await game.save();
 
       return {
         winAmount,

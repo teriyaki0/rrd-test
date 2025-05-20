@@ -7,11 +7,12 @@ import { Context, RouterFactory } from "../../interfaces/general";
 import { rateLimiter } from "../../middleware/rate-limiter";
 import { validate } from "../../middleware/validate";
 import { signInInputScheme } from "./inputs/sign-in.input";
+import { initializeSession } from "../../middleware/initializeSession";
 
 export const makeAuthRouter: RouterFactory = (context: Context) => {
   const router = express.Router();
 
-  router.post("/sign-in", rateLimiter(RATE_LIMIT_PRESET.AUTH), validate({ body: signInInputScheme }), async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+  router.post("/sign-in", initializeSession, rateLimiter(RATE_LIMIT_PRESET.AUTH), validate({ body: signInInputScheme }), async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     try {
       const result = await context.services.authService.login(req.body.initData);
 

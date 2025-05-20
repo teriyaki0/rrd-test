@@ -5,7 +5,7 @@ import perfectionist from "eslint-plugin-perfectionist";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["node_modules", "dist", "./src/migrations", "migrate.js"]),
+  globalIgnores(["node_modules", "dist", "./src/migrations", "migrate.js", "postgres_data"]),
   { files: ["**/*.{js,mjs,cjs,ts}"], plugins: { js, perfectionist }, extends: ["js/recommended"] },
   { files: ["**/*.{js,mjs,cjs,ts}"], languageOptions: { globals: globals.browser } },
   tseslint.configs.recommended,

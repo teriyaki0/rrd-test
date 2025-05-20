@@ -30,7 +30,7 @@ export const rateLimitPresets: Record<string, Partial<IRateLimiterOptions>> = {
   },
 
   "game:spin": {
-    points: 3,
+    points: 15,
     duration: 5,
   },
 };

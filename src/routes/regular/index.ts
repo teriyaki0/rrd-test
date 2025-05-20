@@ -15,8 +15,9 @@ export const makeRegularRouter: RouterFactory = (context: Context) => {
   router.post("/spin", rateLimiter(RATE_LIMIT_PRESET.GAME_SPIN), validate({ body: spinInputSchema }), async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     try {
       const result = await context.services.regularService.spin({
-        tgId: req.user.id,
-        ...req.body,
+        tgId: req.user.tgId,
+        combination: req.body.combination,
+        mode: req.body.mode,
         regularGame: req.session.regularGame,
         doubleGameActive: req.session.doubleGame.active,
       });
@@ -25,7 +26,7 @@ export const makeRegularRouter: RouterFactory = (context: Context) => {
         mode: req.body.mode,
         elements: result.elements,
         winAmount: result.winAmount,
-        combination: req.body.combination,
+        combination: result.results,
         beSecondChance: result.beSecondChance,
       };
 

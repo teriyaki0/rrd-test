@@ -42,7 +42,7 @@ export function superSpin(mode: number, combination: number[], superGame: SuperG
     if (combination[i] === 1) {
       centerIndex = getWheelIndex(wheel, weight);
     } else {
-      centerIndex = superGame?.combination?.[i] ?? 0;
+      centerIndex = superGame.combination[i];
     }
 
     results.push(centerIndex);

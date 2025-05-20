@@ -4,6 +4,7 @@ import { REGULAR_WHEELS } from "../constants/game/const/regular-wheels.const";
 import { WheelElement } from "../constants/game/const/wheel-element.const";
 import { GameMode } from "../constants/game/game-mode.enum";
 import { RegularGame } from "../interfaces/sessions/regular.session";
+import { logger } from "../libs/logger";
 import { adjustWeights } from "./utils/adjustWeights";
 import { checkForWinningCombination } from "./utils/checkForWinningCombination";
 import { getContinueCombination } from "./utils/getContinueCombination";
@@ -15,7 +16,7 @@ import { chooseBestSecondChance } from "./utils/regular/chooseBestSecondChance";
 
 export interface IRegularSpinResult {
   results: number[];
-  elements: WheelElement[];
+  elements: WheelElement[][];
   winAmount: number;
   winLines: any;
   beSecondChance: boolean;
@@ -41,12 +42,13 @@ export function regularSpin(mode: number, combination: number[], regularGame: Re
     if (combination[i] === 1) {
       centerIndex = getWheelIndex(wheel, weight);
     } else {
-      centerIndex = regularGame.combination?.[i] ?? 0;
+      centerIndex = regularGame.combination[i];
     }
 
     results.push(centerIndex);
-    elements.push(getVisibleElements(wheel, centerIndex));
+    elements.push(getVisibleElements(wheel, centerIndex) as WheelElement[]);
   }
+
 
   const { baseWin, baseSecondChance, winLines } = checkForWinningCombination(elements, {
     mode: currentMode,
@@ -80,7 +82,7 @@ export function regularSpin(mode: number, combination: number[], regularGame: Re
   return {
     results,
     winAmount,
-    elements: elements.flat(),
+    elements: elements,
     beSecondChance: combination.some((v) => v !== 1),
     indexContinue: getContinueCombination(missingIndex),
     winLines: winLinesCore,

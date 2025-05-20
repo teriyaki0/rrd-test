@@ -1,4 +1,3 @@
-import { createAdapter } from "@socket.io/redis-adapter";
 import { Server } from "socket.io";
 
 import { HTTP_STATUS_CODE } from "../constants/http-status-code.enum";
@@ -8,32 +7,25 @@ import { SOCKET_HANDLES } from "../constants/socket-handles.enum";
 import { SessionIncomingMessage } from "../interfaces/express";
 import { SocketLoader } from "../interfaces/general";
 import { logger } from "../libs/logger";
-import { redisClient } from "../libs/redis";
 import { socketCors } from "../middleware/cors-settings";
-import { sessionMiddleware } from "../middleware/session";
 import { socketAuth } from "../middleware/socketAuth";
-import { socketSessionMiddleware } from "../middleware/socketSession";
 import { Game } from "../models/game.model";
 import { User } from "../models/user.model";
 import { saveSession } from "../utils/saveSession";
 import { getSocketSession, getSocketUser } from "../utils/socket";
+import { sessionMiddleware } from "../middleware/session";
 
 export const loadSocket: SocketLoader = (httpServer, context) => {
   const io = new Server(httpServer, {
     path: "/rrd/socket.io",
     cors: socketCors,
-    transports: ["websocket", "polling"],
-    allowEIO3: true,
+    transports: ["websocket"],
   });
-
-  io.adapter(createAdapter(redisClient, redisClient.duplicate()));
-
-  io.use(socketSessionMiddleware);
 
   io.use((socket, next) => {
     sessionMiddleware(socket.request as any, {} as any, next as any);
   });
-
+  
   io.use(socketAuth);
 
   io.on(SOCKET_HANDLES.COMMON.CONNECTION, (socket) => {
@@ -47,7 +39,7 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
     logger.info({
       msg: SUCCESS.SOCKET.CONNECTED,
       sessionId: getSocketSession(socket).id,
-      userId: user.id,
+      userId: user.tgId,
     });
 
     socket.on(SOCKET_HANDLES.COMMON.ERROR, (err) => {
@@ -68,7 +60,13 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
           return;
         }
 
-        const tgId = user.id;
+        logger.info({
+          msg: "[DOUBLE] Received double request from socket",
+          socketId: socket.id,
+          user: (request as any).user?.tgId,
+        });
+
+        const tgId = user.tgId;
         const session = getSocketSession(socket);
 
         try {

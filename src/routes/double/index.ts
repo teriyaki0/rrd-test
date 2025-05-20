@@ -12,7 +12,7 @@ export const makeDoubleRouter: RouterFactory = (context: Context) => {
 
   router.get("/start/:mode", validate({ params: startDoubleInputScheme }), async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     try {
-      const result = await context.services.doubleService.start({ tgId: req.user.id, mode: req.params.mode, appSession: req.session });
+      const result = await context.services.doubleService.start({ tgId: req.user.tgId, mode: req.params.mode, appSession: req.session });
 
       req.session.doubleGame = result.doubleGame;
 
@@ -28,8 +28,9 @@ export const makeDoubleRouter: RouterFactory = (context: Context) => {
 
   router.get("/cashout", async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     try {
-      const result = await context.services.doubleService.cashOut({ tgId: req.user.id, doubleGame: req.session.doubleGame });
-
+      const result = await context.services.doubleService.cashOut({ tgId: req.user.tgId, doubleGame: req.session.doubleGame });
+      req.session.doubleGame.active = false;
+      saveSession(req.session);
       res.status(HTTP_STATUS_CODE.OK).json(result);
     } catch (error) {
       next(error);
@@ -38,7 +39,7 @@ export const makeDoubleRouter: RouterFactory = (context: Context) => {
 
   router.get("/half", async (req: ExtendedRequest, res: Response, next: NextFunction) => {
     try {
-      const result = await context.services.doubleService.half({ tgId: req.user.id, doubleGame: req.session.doubleGame });
+      const result = await context.services.doubleService.half({ tgId: req.user.tgId, doubleGame: req.session.doubleGame });
       req.session.doubleGame = result.doubleGame;
 
       saveSession(req.session);

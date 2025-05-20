@@ -28,6 +28,14 @@ export function validate(schemas: Schemas) {
 
         const strictSchema = makeStrict(schema);
         const value = (req as any)[key];
+        logger.info({
+          msg: "Incoming request data before validation",
+          part: key,
+          data: value,
+          reqId: (req as any).id,
+          method: req.method,
+          url: req.url,
+        });
         (req as any)[key] = strictSchema.parse(value);
       }
 

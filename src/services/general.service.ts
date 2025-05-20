@@ -7,22 +7,19 @@ import { Game } from "../models/game.model";
 import { User } from "../models/user.model";
 
 export class GeneralService implements IGeneralService {
-  async init({ tgId }: { tgId: string }): Promise<{ winPoint: number; superPoint: number; credits: number; cards: number } | null> {
+  async init({ tgId }: { tgId: string }): Promise<{ winAmount: number; superPoint: number; credits: number; cards: number } | null> {
+    const user = await User.findOne({ where: { tgId } });
+
+    if (!user) throw new HttpError(HTTP_STATUS_CODE.BAD_REQUEST, ERROR_MESSAGE.USER.USER_NOT_FOUND);
+
     const game = await Game.findOne({
-      include: [
-        {
-          model: User,
-          as: "user",
-          where: { tgId },
-          attributes: [],
-        },
-      ],
+      where: { userId: user.id },
       attributes: ["winPoint", "superPoint", "credits", "cards"],
     });
 
     const { winPoint, superPoint, credits, cards } = game;
 
-    return { winPoint, superPoint, credits, cards };
+    return { winAmount: winPoint, superPoint, credits, cards };
   }
 
   async creditsTransfer({ tgId, amount, from, to }: { tgId: string; amount: number; from: Currency; to: Currency }): Promise<{ credits: number; superPoint: number }> {

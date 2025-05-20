@@ -7,7 +7,7 @@ import { DoubleGame } from "./sessions/double.session";
 import { RegularGame } from "./sessions/regular.session";
 import { SuperGame } from "./sessions/super.session";
 
-export type AuthenticatedUser = Pick<User, "id">;
+export type AuthenticatedUser = Pick<User, "tgId">;
 
 export interface AppSession extends Session {
   user: AuthenticatedUser;

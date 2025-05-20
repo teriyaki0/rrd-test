@@ -12,7 +12,7 @@ export const loadPassport: Loader = (app, context: Context) => {
   passport.use(
     new JWTStrategy({ jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), secretOrKey: config.security.auth.secret }, async (jwtPayload, done) => {
       try {
-        const user = await User.findByPk(jwtPayload.id);
+        const user = await User.findOne({ where: { tgId: String(jwtPayload.tgId) } });
 
         if (!user) {
           return done(null, false, { message: ERROR_MESSAGE.AUTH.UNAUTHORIZED });

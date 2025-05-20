@@ -22,4 +22,6 @@ export const loadTelegraph: Loader = (app, context) => {
   bot.command(TELEGRAM.COMMANDS.START, async (ctx) => {
     await context.services.telegramService.start(ctx);
   });
+
+  bot.launch()
 };

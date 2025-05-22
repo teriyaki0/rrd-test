@@ -1,6 +1,8 @@
+import { config } from "../../config";
 import { SuperWheelElement } from "../../constants/game/super-wheel.enum";
+import { adjustSuperWeightsForRTP } from "../utils/weight-adjuster";
 
-export const SUPER_WEIGHTS_ONE: Record<SuperWheelElement, number> = {
+const BASE_WEIGHTS_ONE: Record<SuperWheelElement, number> = {
   [SuperWheelElement.ORANGE]: 25,
   [SuperWheelElement.PLUM]: 20,
   [SuperWheelElement.PEAR]: 15,
@@ -13,7 +15,7 @@ export const SUPER_WEIGHTS_ONE: Record<SuperWheelElement, number> = {
   [SuperWheelElement.CARD]: 0,
 };
 
-export const SUPER_WEIGHTS_TWO: Record<SuperWheelElement, number> = {
+const BASE_WEIGHTS_TWO: Record<SuperWheelElement, number> = {
   [SuperWheelElement.ORANGE]: 10,
   [SuperWheelElement.PLUM]: 15,
   [SuperWheelElement.PEAR]: 25,
@@ -26,7 +28,7 @@ export const SUPER_WEIGHTS_TWO: Record<SuperWheelElement, number> = {
   [SuperWheelElement.CARD]: 5,
 };
 
-export const SUPER_WEIGHTS_THREE: Record<SuperWheelElement, number> = {
+const BASE_WEIGHTS_THREE: Record<SuperWheelElement, number> = {
   [SuperWheelElement.ORANGE]: 5,
   [SuperWheelElement.PLUM]: 10,
   [SuperWheelElement.PEAR]: 10,
@@ -38,6 +40,10 @@ export const SUPER_WEIGHTS_THREE: Record<SuperWheelElement, number> = {
   [SuperWheelElement.KING]: 5,
   [SuperWheelElement.CARD]: 0,
 };
+
+export const SUPER_WEIGHTS_ONE = adjustSuperWeightsForRTP(BASE_WEIGHTS_ONE, config.rtp.targetRtp);
+export const SUPER_WEIGHTS_TWO = adjustSuperWeightsForRTP(BASE_WEIGHTS_TWO, config.rtp.targetRtp);
+export const SUPER_WEIGHTS_THREE = adjustSuperWeightsForRTP(BASE_WEIGHTS_THREE, config.rtp.targetRtp);
 
 export const SUPER_WEIGHTS_ALL = [
   SUPER_WEIGHTS_ONE,

@@ -1,6 +1,8 @@
+import { config } from "../../config";
 import { RegularWheelElement } from "../../constants/game/regular-wheel.enum";
+import { adjustRegularWeightsForRTP } from "../utils/weight-adjuster";
 
-export const REGULAR_WEIGHTS_ONE: Record<RegularWheelElement, number> = {
+const BASE_WEIGHTS_ONE: ReelRegularWeights = {
   [RegularWheelElement.CHERRY]: 20,
   [RegularWheelElement.LEMON]: 20,
   [RegularWheelElement.ORANGE]: 10,
@@ -15,7 +17,7 @@ export const REGULAR_WEIGHTS_ONE: Record<RegularWheelElement, number> = {
   [RegularWheelElement.ANY]: 0,
 };
 
-export const REGULAR_WEIGHTS_TWO: Record<RegularWheelElement, number> = {
+const BASE_WEIGHTS_TWO: ReelRegularWeights = {
   [RegularWheelElement.CHERRY]: 50,
   [RegularWheelElement.LEMON]: 15,
   [RegularWheelElement.ORANGE]: 10,
@@ -30,7 +32,7 @@ export const REGULAR_WEIGHTS_TWO: Record<RegularWheelElement, number> = {
   [RegularWheelElement.ANY]: 0,
 };
 
-export const REGULAR_WEIGHTS_THREE: Record<RegularWheelElement, number> = {
+const BASE_WEIGHTS_THREE: ReelRegularWeights = {
   [RegularWheelElement.CHERRY]: 50,
   [RegularWheelElement.LEMON]: 25,
   [RegularWheelElement.ORANGE]: 10,
@@ -44,6 +46,10 @@ export const REGULAR_WEIGHTS_THREE: Record<RegularWheelElement, number> = {
   [RegularWheelElement.BAR]: 0, 
   [RegularWheelElement.ANY]: 0,
 };
+
+export const REGULAR_WEIGHTS_ONE = adjustRegularWeightsForRTP(BASE_WEIGHTS_ONE, config.rtp.targetRtp);
+export const REGULAR_WEIGHTS_TWO = adjustRegularWeightsForRTP(BASE_WEIGHTS_TWO, config.rtp.targetRtp);
+export const REGULAR_WEIGHTS_THREE = adjustRegularWeightsForRTP(BASE_WEIGHTS_THREE, config.rtp.targetRtp);
 
 export const REGULAR_WEIGHTS_ALL = [
   REGULAR_WEIGHTS_ONE,

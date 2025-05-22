@@ -16,7 +16,7 @@ export const makeDoubleRouter: RouterFactory = (context: Context) => {
 
       req.session.doubleGame = result.doubleGame;
 
-      saveSession(req.session);
+      await saveSession(req.session);
 
       const { doubleGame, ...responseData } = result;
 
@@ -30,7 +30,7 @@ export const makeDoubleRouter: RouterFactory = (context: Context) => {
     try {
       const result = await context.services.doubleService.cashOut({ tgId: req.user.tgId, doubleGame: req.session.doubleGame });
       req.session.doubleGame.active = false;
-      saveSession(req.session);
+      await saveSession(req.session);
       res.status(HTTP_STATUS_CODE.OK).json(result);
     } catch (error) {
       next(error);
@@ -42,7 +42,7 @@ export const makeDoubleRouter: RouterFactory = (context: Context) => {
       const result = await context.services.doubleService.half({ tgId: req.user.tgId, doubleGame: req.session.doubleGame });
       req.session.doubleGame = result.doubleGame;
 
-      saveSession(req.session);
+      await saveSession(req.session);
 
       const { doubleGame, ...responseData } = result;
 

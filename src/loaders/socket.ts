@@ -60,7 +60,7 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
           });
 
           session.doubleGame = result.doubleGame;
-          saveSession(session);
+          await saveSession(session);
 
           const { doubleGame, ...responseData } = result;
 
@@ -100,7 +100,7 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
             initialWinPoint: 0,
           };
 
-          saveSession(session);
+          await saveSession(session);
 
           socket.emit(SOCKET_HANDLES.DOUBLE.ERROR, {
             code: HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR,

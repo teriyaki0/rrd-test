@@ -22,10 +22,6 @@ export class RegularService implements IRegularService {
     regularGame: RegularGame;
     doubleGameActive: boolean;
   }): Promise<IRegularSpinResult> {
-    // if (doubleGameActive) {
-    //   throw new HttpError(HTTP_STATUS_CODE.BAD_REQUEST, ERROR_MESSAGE.GAME.DOUBLE_GAME_ACTIVE);
-    // }
-
     const game = await Game.findOne({
       include: [
         {

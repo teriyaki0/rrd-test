@@ -16,23 +16,23 @@ export const SUPER_PAYOUT_TABLE: PayoutTable = {
   [SuperWheelElement.WATERMELON]: 64,
   [SuperWheelElement.BELL]: 100,
   [SuperWheelElement.SEVEN]: 120,
-  [SuperWheelElement.KING]: 200,
+  [SuperWheelElement.KING]: 150,
   [SuperWheelElement.CARD]: 10,
 };
 
 export const REGULAR_PAYOUT_TABLE: PayoutTable = {
-  [RegularWheelElement.CHERRY]: 8,
-  [RegularWheelElement.LEMON]: 8,
-  [RegularWheelElement.ORANGE]: 12,
-  [RegularWheelElement.PLUM]: 16,
-  [RegularWheelElement.PEAR]: 20,
-  [RegularWheelElement.GRAPE]: 20,
-  [RegularWheelElement.WATERMELON]: 40,
-  [RegularWheelElement.BELL]: 80,
-  [RegularWheelElement.KING]: 80,
-  [RegularWheelElement.JOKER]: 40,
-  [RegularWheelElement.BAR]: 16,
-  [RegularWheelElement.ANY]: 0,
+  [RegularWheelElement.CHERRY]: 0.5,   
+  [RegularWheelElement.LEMON]: 0.5,    
+  [RegularWheelElement.ORANGE]: 1.0, 
+  [RegularWheelElement.PLUM]: 1.5,   
+  [RegularWheelElement.PEAR]: 2.0,   
+  [RegularWheelElement.GRAPE]: 2.5,  
+  [RegularWheelElement.WATERMELON]: 5.0, 
+  [RegularWheelElement.BELL]: 10.0,    
+  [RegularWheelElement.KING]: 15.0,    
+  [RegularWheelElement.JOKER]: 20.0,   
+  [RegularWheelElement.BAR]: 3.0,    
+  [RegularWheelElement.ANY]: 0.0, 
 };
 
 export function calculateSingleReelRTP<T extends string>(

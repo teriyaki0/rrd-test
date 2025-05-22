@@ -19,7 +19,7 @@ export const makeRegularRouter: RouterFactory = (context: Context) => {
         combination: req.body.combination,
         mode: req.body.mode,
         regularGame: req.session.regularGame,
-        doubleGameActive: req.session.doubleGame.active,
+        doubleGameActive:  req.session.doubleGame?.active ?? false,
       });
 
       req.session.regularGame = {
@@ -30,7 +30,7 @@ export const makeRegularRouter: RouterFactory = (context: Context) => {
         beSecondChance: result.beSecondChance,
       };
 
-      saveSession(req.session);
+      await saveSession(req.session);
 
       res.status(HTTP_STATUS_CODE.OK).json(result);
     } catch (error) {

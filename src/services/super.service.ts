@@ -25,10 +25,6 @@ export class SuperService implements ISuperService {
     superGame: SuperGame;
     doubleGameActive: boolean;
   }): Promise<ISuperSpinResult> {
-    // if (doubleGameActive) {
-    //   throw new HttpError(HTTP_STATUS_CODE.BAD_REQUEST, ERROR_MESSAGE.GAME.DOUBLE_GAME_ACTIVE);
-    // }
-
     const game = await Game.findOne({
       include: [
         {

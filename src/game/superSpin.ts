@@ -30,9 +30,10 @@ export function superSpin(mode: number, combination: number[], superGame: SuperG
     adjustWeights(currentMode, wheelWeights)
   );
 
-  if (superGame.beSecondChance || superGame.winAmount > 0 || superGame.carding) {
+  if (superGame?.beSecondChance || superGame?.winAmount > 0 || superGame?.carding) {
     combination = [1, 1, 1];
   }
+
 
   const results: number[] = [];
   const elements: WheelElement[][] = [];

@@ -19,7 +19,7 @@ export class DoubleService implements IDoubleService {
     mode: string;
     appSession: AppSession;
   }): Promise<{ doubleGame: DoubleGame; credits: number; winPoints: number; superPoint: number }> {
-    const active = appSession.doubleGame.active;
+    const active = appSession.doubleGame?.active ?? false;
 
     if (active) {
       throw new HttpError(HTTP_STATUS_CODE.BAD_REQUEST, ERROR_MESSAGE.GAME.DOUBLE_GAME_ACTIVE);

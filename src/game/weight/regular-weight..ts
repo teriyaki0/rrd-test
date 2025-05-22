@@ -6,19 +6,19 @@ const BASE_WEIGHTS_ONE: ReelRegularWeights = {
   [RegularWheelElement.CHERRY]: 20,
   [RegularWheelElement.LEMON]: 20,
   [RegularWheelElement.ORANGE]: 10,
-  [RegularWheelElement.PLUM]: 25,
+  [RegularWheelElement.PLUM]: 16,
   [RegularWheelElement.PEAR]: 10,
   [RegularWheelElement.GRAPE]: 5,
   [RegularWheelElement.WATERMELON]: 5,
   [RegularWheelElement.BELL]: 3,
-  [RegularWheelElement.KING]: 1,
+  [RegularWheelElement.KING]: 5,
   [RegularWheelElement.JOKER]: 1,
-  [RegularWheelElement.BAR]: 0, 
+  [RegularWheelElement.BAR]: 5, 
   [RegularWheelElement.ANY]: 0,
 };
 
 const BASE_WEIGHTS_TWO: ReelRegularWeights = {
-  [RegularWheelElement.CHERRY]: 50,
+  [RegularWheelElement.CHERRY]: 43,
   [RegularWheelElement.LEMON]: 15,
   [RegularWheelElement.ORANGE]: 10,
   [RegularWheelElement.PLUM]: 8,
@@ -26,14 +26,14 @@ const BASE_WEIGHTS_TWO: ReelRegularWeights = {
   [RegularWheelElement.GRAPE]: 5,
   [RegularWheelElement.WATERMELON]: 3,
   [RegularWheelElement.BELL]: 1,
-  [RegularWheelElement.KING]: 1,
-  [RegularWheelElement.JOKER]: 0,
-  [RegularWheelElement.BAR]: 0, 
+  [RegularWheelElement.KING]: 4,
+  [RegularWheelElement.JOKER]: 2,
+  [RegularWheelElement.BAR]: 3, 
   [RegularWheelElement.ANY]: 0,
 };
 
 const BASE_WEIGHTS_THREE: ReelRegularWeights = {
-  [RegularWheelElement.CHERRY]: 50,
+  [RegularWheelElement.CHERRY]: 30,
   [RegularWheelElement.LEMON]: 25,
   [RegularWheelElement.ORANGE]: 10,
   [RegularWheelElement.PLUM]: 5,
@@ -41,9 +41,9 @@ const BASE_WEIGHTS_THREE: ReelRegularWeights = {
   [RegularWheelElement.GRAPE]: 3,
   [RegularWheelElement.WATERMELON]: 1,
   [RegularWheelElement.BELL]: 1,
-  [RegularWheelElement.KING]: 0,
-  [RegularWheelElement.JOKER]: 0,
-  [RegularWheelElement.BAR]: 0, 
+  [RegularWheelElement.KING]: 15,
+  [RegularWheelElement.JOKER]: 3,
+  [RegularWheelElement.BAR]: 2, 
   [RegularWheelElement.ANY]: 0,
 };
 

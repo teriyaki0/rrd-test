@@ -29,7 +29,7 @@ export function regularSpin(mode: number, combination: number[], regularGame: Re
     adjustWeights(currentMode, wheelWeights)
   );
   
-  if (regularGame.beSecondChance || regularGame.winAmount > 0) {
+  if (regularGame?.beSecondChance || regularGame?.winAmount > 0) {
     combination = [1, 1, 1];
   }
 

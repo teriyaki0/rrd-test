@@ -19,7 +19,7 @@ export const makeSuperRouter: RouterFactory = (context: Context) => {
         combination: req.body.combination,
         mode: req.body.mode,
         superGame: req.session.superGame,
-        doubleGameActive: req.session.doubleGame.active,
+        doubleGameActive:  req.session.doubleGame?.active ?? false,
       });
 
       req.session.superGame = {
@@ -31,7 +31,7 @@ export const makeSuperRouter: RouterFactory = (context: Context) => {
         carding: result.cards > 0 ? true : false
       };
 
-      saveSession(req.session);
+      await saveSession(req.session);
 
       res.status(HTTP_STATUS_CODE.OK).json(result);
     } catch (error) {

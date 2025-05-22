@@ -9,7 +9,7 @@ import { getExpiration } from "../utils/getExpiration";
 export const sessionMiddleware = session({
   secret: config.security.session.secret,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,

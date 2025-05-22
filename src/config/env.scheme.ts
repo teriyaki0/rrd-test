@@ -34,6 +34,8 @@ const envSchema = z.object({
 
   CLIENT_URL: z.string(),
   WEBHOOK_URL: z.string(),
+
+  RTP: z.coerce.number()
 });
 
 let validatedEnv: z.infer<typeof envSchema>;

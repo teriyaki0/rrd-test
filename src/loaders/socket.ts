@@ -67,7 +67,7 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
           socket.emit(SOCKET_HANDLES.DOUBLE.RESULT, responseData);
         } catch (error) {
           logger.error({
-            msg: "[DOUBLE] ❌ Error during double game play",
+            msg: "[DOUBLE] Error during double game play",
             socketId: socket.id,
             userId: tgId,
             errorMessage: error?.message,
@@ -85,7 +85,7 @@ export const loadSocket: SocketLoader = (httpServer, context) => {
             game.winPoint = 0;
             await game.save();
             logger.warn({
-              msg: "[DOUBLE] 🛑 Game reset due to error",
+              msg: "[DOUBLE] Game reset due to error",
               gameId: game.id,
               userId: tgId,
             });

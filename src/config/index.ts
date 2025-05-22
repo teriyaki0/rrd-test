@@ -42,6 +42,13 @@ export interface Config {
   logging: {
     level: LogLevel;
   };
+  rtp: {
+    targetRtp: number;
+    maxIterations: number;
+    tolerance: number;
+    adjustmentStep: number;
+    minWeight: number;
+  };
 }
 
 const configs: {
@@ -86,6 +93,13 @@ const configs: {
     logging: {
       level: validatedEnv.LOG_LEVEL,
     },
+    rtp:{
+      targetRtp: validatedEnv.RTP,
+      maxIterations: 1000,
+      tolerance: 0.00001,
+      adjustmentStep: 0.1,
+      minWeight: 0
+    }
   },
 };
 

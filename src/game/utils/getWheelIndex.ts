@@ -1,21 +1,29 @@
 import { randomBytes } from "crypto";
 
 export function getWheelIndex<T extends string>(wheel: T[], weights: Record<T, number>): number {
-  const weightValues = wheel.map((element) => weights[element] || 1);
-  const totalWeight = weightValues.reduce((acc, weight) => acc + weight, 0);
+  const entries = Object.entries(weights) as [T, number][];
+  const totalWeight = entries.reduce((sum, [, w]) => sum + w, 0);
 
   const randomBuffer = randomBytes(4);
   const randomNumber = randomBuffer.readUInt32BE(0);
+  const target = randomNumber % totalWeight;
 
-  const random = randomNumber % totalWeight;
+  let acc = 0;
+  let selectedSymbol: T | null = null;
 
-  let accumulated = 0;
-  for (let i = 0; i < weightValues.length; i++) {
-    accumulated += weightValues[i];
-    if (random < accumulated) {
-      return i;
+  for (const [symbol, weight] of entries) {
+    acc += weight;
+    if (target < acc) {
+      selectedSymbol = symbol;
+      break;
     }
   }
 
-  return wheel.length - 1;
+  if (!selectedSymbol) {
+    selectedSymbol = entries[entries.length - 1][0];
+  }
+
+  const index = wheel.findIndex((el) => el === selectedSymbol);
+
+  return index;
 }

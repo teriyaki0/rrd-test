@@ -1,5 +1,4 @@
 import { SUPER_COMBINATION } from "../constants/game/const/super-combination.const";
-import { SUPER_WEIGHTS } from "../constants/game/const/super-weight.const";
 import { SUPER_WHEELS } from "../constants/game/const/super-wheels.const";
 import { WheelElement } from "../constants/game/const/wheel-element.const";
 import { GameMode } from "../constants/game/game-mode.enum";
@@ -12,6 +11,7 @@ import { getVisibleElements } from "./utils/getVisibleElements";
 import { getWheelIndex } from "./utils/getWheelIndex";
 import { mapModeToMultiplier } from "./utils/mapModeToMultiplier";
 import { cardAdding } from "./utils/super/cardAdding";
+import { SUPER_WEIGHTS_ALL, SUPER_WEIGHTS_ONE } from "./weight/super-weight.";
 
 export interface ISuperSpinResult {
   results: number[];
@@ -26,7 +26,9 @@ export interface ISuperSpinResult {
 export function superSpin(mode: number, combination: number[], superGame: SuperGame): ISuperSpinResult {
   const currentMode = mapModeToMultiplier(mode);
 
-  const weight = adjustWeights(currentMode, SUPER_WEIGHTS);
+  const weightSet = SUPER_WEIGHTS_ALL.map((wheelWeights) => 
+    adjustWeights(currentMode, wheelWeights)
+  );
 
   if (superGame.beSecondChance || superGame.winAmount > 0 || superGame.carding) {
     combination = [1, 1, 1];
@@ -37,10 +39,12 @@ export function superSpin(mode: number, combination: number[], superGame: SuperG
 
   for (let i = 0; i < SUPER_WHEELS.length; i++) {
     const wheel = SUPER_WHEELS[i] as SuperWheelElement[];
+    const wheelWeight = weightSet[i];
+
     let centerIndex: number;
 
     if (combination[i] === 1) {
-      centerIndex = getWheelIndex(wheel, weight);
+      centerIndex = getWheelIndex(wheel, wheelWeight);
     } else {
       centerIndex = superGame.combination[i];
     }
